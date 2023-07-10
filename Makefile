@@ -4,13 +4,15 @@ version = 1
 run:
 	go run main.go
 
-build:
+build-bin:
 	export CGO_ENABLED=0 && \
 	export GOOS=linux && \
 	go build -o bin/main main.go
 
 build-image:
 	docker build -t "$(appname):$(version)" .
+
+build: build-bin build-image
 
 run-image:
 	docker stop $(appname) && \
