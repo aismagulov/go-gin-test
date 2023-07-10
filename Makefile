@@ -5,12 +5,14 @@ run:
 	go run main.go
 
 build:
-	CGO_ENABLED=0 \
-	GOOS=linux \
+	export CGO_ENABLED=0 && \
+	export GOOS=linux && \
 	go build -o bin/main main.go
 
 build-image:
 	docker build -t "$(appname):$(version)" .
 
 run-image:
+	docker stop $(appname) && \
+	docker rm $(appname) && \
 	docker run --name $(appname) -p 8080:8080 $(appname):$(version)
