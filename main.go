@@ -15,6 +15,11 @@ import (
 func main() {
 	router := gin.Default()
 
+	router.LoadHTMLGlob("templates/*.html")
+	router.GET("/", func(c *gin.Context) {
+		c.HTML(http.StatusOK, "index.html", nil)
+	})
+
 	var secret string = os.Getenv("SESSION_SECRET")
 	var redispass string = os.Getenv("REDIS_PASSWORD")
 	// store := cookie.NewStore([]byte(secret))

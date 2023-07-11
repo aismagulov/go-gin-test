@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>blog.petehouston.com - Serve static files in Gin web application</title>
+    <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+
+<h1>Serve static files in Gin web application</h1>
+<button  onclick="callLogin()" id="login_btn">Login</button>
+<button  onclick="callLogout()" id="logout_btn">Logout</button>
+<br/>
+<button  onclick="callTest()" id="test_btn">Test</button>
+
+<div id="result"></div>
+
+<script>
+  function callLogin() {
+    fetch('/login', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      })
+      .then(response => {
+        if (response.ok) {
+          print('Login successful');
+          return response.json();
+        } else {
+          print('Login failed');
+          return "";
+        }
+      })
+      .then(data => print(JSON.stringify(data)))
+      .catch(error => {
+        console.error('Error:', error);
+      });
+  }
+
+  function callLogout() {
+    fetch('/logout', {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      })
+      .then(response => {
+        if (response.ok) {
+          print('Logout successful');
+          return response.json();
+        } else {
+          print('Logout failed');
+        }
+      })
+      .then(data => print(JSON.stringify(data)))
+      .catch(error => {
+        console.error('Error:', error);
+      });
+  }
+
+  function callTest() {
+    fetch('/auth/test', {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      })
+      .then(response => {
+        if (response.ok) {
+          print('Test successful');
+        } else {
+          print('Test failed');
+        }
+        return response.json();
+      })
+      .then(data => print(JSON.stringify(data)))
+      .catch(error => {
+        console.error('Error:', error);
+      });
+  }
+
+  function print(str) {
+    document.getElementById("result").innerText = str + "\n" + document.getElementById("result").innerText;
+  }
+
+</script>
+
+</body>
+</html>
