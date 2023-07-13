@@ -10,6 +10,8 @@ services:
       REDIS_PASSWORD: ${REDIS_PASSWORD}
 
   backend:
+    depends_on:
+      - redis-session
     build:
       context: .
       dockerfile: ./Dockerfile
@@ -18,3 +20,4 @@ services:
       - '8080:8080'
     environment:
       SESSION_SECRET: ${SESSION_SECRET}
+      REDIS_PASSWORD: ${REDIS_PASSWORD}

@@ -25,6 +25,9 @@
         headers: {
           'Content-Type': 'application/json',
         },
+        body: JSON.stringify ({
+          "email": "test@ab.com"
+        })
       })
       .then(response => {
         if (response.ok) {
